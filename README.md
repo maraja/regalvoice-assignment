@@ -1,5 +1,5 @@
-# LinqPal Technical Assignment
-> This project is aimed to develop a frontend, backend, and database suitable for the LinqPal technical assessment as a part of their hiring process. Additionally, this code can be used as a boilerplate to start a Node.js/Express.js/React.js web application.
+# Regal Voice Technical Assignment
+> This project is aimed to develop a frontend, backend, and database suitable for the Regal Voice technical assessment as a part of their hiring process. Additionally, this code can be used as a boilerplate to start a Node.js/Express.js/React.js web application.
 
 ## Table of contents
 * [General info](#general-info)
