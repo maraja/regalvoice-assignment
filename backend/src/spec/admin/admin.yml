@@ -1,0 +1,45 @@
+admin:
+    post:
+        description: |
+            authenticates for a admin
+        operationId: postAdmin
+        # security:
+        #     - ApiKeyAuth: []
+        requestBody:
+            description: details for the user to authenticate
+            required: true
+            content:
+                application/json:
+                    schema: 
+                        $ref: '#/components/schemas/Admin'
+
+        responses:
+            '200':
+                description: admin
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/Admin'
+            default:
+                description: unexpected error
+                content:
+                    application/json:
+                        schema:
+                            $ref: '../openapi.yml#/components/schemas/Error'
+
+components:
+    schemas:
+        Admin:
+            required:
+                - email
+                - password
+            properties:
+                first_name:
+                    type: string
+                last_name:
+                    type: string
+                email:
+                    type: string
+                password:
+                    type: string
+                    

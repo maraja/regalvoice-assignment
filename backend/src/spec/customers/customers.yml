@@ -1,0 +1,58 @@
+customers:
+    get:
+        description: |
+            gets customers
+        operationId: getCustomers
+
+        responses:
+            '200':
+                description: customers
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/Customer'
+            default:
+                description: unexpected error
+                content:
+                    application/json:
+                        schema:
+                            $ref: '../openapi.yml#/components/schemas/Error'
+    post:
+        description: |
+            creates a new customer
+        operationId: postCustomer
+        # security:
+        #     - ApiKeyAuth: []
+        requestBody:
+            description: details for a new customer
+            required: true
+            content:
+                application/json:
+                    schema: 
+                        $ref: '#/components/schemas/Customer'
+
+        responses:
+            '200':
+                description: customer
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/Customer'
+            default:
+                description: unexpected error
+                content:
+                    application/json:
+                        schema:
+                            $ref: '../openapi.yml#/components/schemas/Error'
+
+components:
+    schemas:
+        Customer:
+            required:
+                - first_name
+                - phone_number
+            properties:
+                first_name:
+                    type: string
+                phone:
+                    type: string

@@ -1,0 +1,90 @@
+version: "3"
+services:
+    backend:
+        build: "./backend"
+        depends_on:
+            - backend-db
+            # - backend-test-db
+        environment:
+            - DB_URI=mysql://root:password@backend-db/db?charset=UTF8
+            # - TEST_DB_URI=mysql://root:password@backend-test-db/db?charset=UTF8
+            - MOCK_DATA=no
+            - MESSAGE_QUEUE=amqp://rabbitmq
+        networks:
+            - app-network
+        ports:
+            - 8001:8001
+        volumes:
+            - ./backend:/opt/app
+        links:
+            - backend-db
+            - rabbitmq
+    
+    backend-db:
+        environment:
+            - MYSQL_ROOT_PASSWORD=password
+            - MYSQL_DATABASE=db
+        image: mysql:5.7.20
+        networks:
+            - app-network
+        ports:
+            - 0.0.0.0:8201:3306
+
+    # backend-test-db:
+    #     environment:
+    #         - MYSQL_ROOT_PASSWORD=password
+    #         - MYSQL_DATABASE=db
+    #     image: mysql:5.7.20
+    #     networks:
+    #         - app-network
+    #     ports:
+    #         - 0.0.0.0:8202:3306
+
+    
+    # producer:
+    #     build:
+    #         context: ./producer
+    #         dockerfile: Dockerfile
+    #     working_dir: /usr/src/app
+    #     volumes:
+    #         - ./producer:/usr/src/app
+    #     restart: on-failure
+    #     networks:
+    #         - app-network
+    #     environment:
+    #         - MESSAGE_QUEUE=amqp://rabbitmq
+    #     links:
+    #         - rabbitmq
+
+    # consumer:
+    #     build:
+    #         context: ./consumer
+    #         dockerfile: Dockerfile
+    #     working_dir: /usr/src/app
+    #     volumes:
+    #         - ./consumer:/usr/src/app
+    #     restart: on-failure
+    #     networks:
+    #         - app-network
+    #     environment:
+    #         - MESSAGE_QUEUE=amqp://rabbitmq
+    #     links:
+    #         - rabbitmq
+
+    rabbitmq:
+        image: rabbitmq:3.7.4
+        networks:
+            - app-network
+        command: rabbitmq-server
+        expose:
+            - 5672
+            - 15672
+        healthcheck:
+            test: [ "CMD", "nc", "-z", "localhost", "5672" ]
+            interval: 5s
+            timeout: 15s
+            retries: 5
+
+networks:
+    app-network:
+        driver: bridge

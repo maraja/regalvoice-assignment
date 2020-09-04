@@ -1,0 +1,31 @@
+calls:
+    get:
+        description: |
+            gets calls
+        operationId: getCalls
+        responses:
+            '200':
+                description: calls
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/Call'
+            default:
+                description: unexpected error
+                content:
+                    application/json:
+                        schema:
+                            $ref: '../openapi.yml#/components/schemas/Error'
+
+components:
+    schemas:
+        Call:
+            properties:
+                timestamp:
+                    type: string
+                answered:
+                    type: boolean
+                voicemail_detected:
+                    type: boolean
+                declined:
+                    type: boolean

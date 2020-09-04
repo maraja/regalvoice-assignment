@@ -1,0 +1,47 @@
+newAdmin:
+    post:
+        description: |
+            creates a new admin
+        operationId: postNewAdmin
+        # security:
+        #     - ApiKeyAuth: []
+        requestBody:
+            description: details for the new admin
+            required: true
+            content:
+                application/json:
+                    schema: 
+                        $ref: '#/components/schemas/Admin'
+
+        responses:
+            '200':
+                description: admin
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/Admin'
+            default:
+                description: unexpected error
+                content:
+                    application/json:
+                        schema:
+                            $ref: '../openapi.yml#/components/schemas/Error'
+
+components:
+    schemas:
+        Admin:
+            required:
+                - email
+                - password
+                - first_name
+                - last_name
+            properties:
+                first_name:
+                    type: string
+                last_name:
+                    type: string
+                email:
+                    type: string
+                password:
+                    type: string
+                    

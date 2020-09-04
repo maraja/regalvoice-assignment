@@ -1,0 +1,16 @@
+node_modules/
+
+dist/
+
+yarn.lock
+
+.cache/ 
+
+.cache
+
+backend/node_modules
+frontend/node_modules
+consumer/node_modules
+producer/node_modules
+backend/.env
+

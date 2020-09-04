@@ -1,0 +1,17 @@
+callsCompleted:
+    post:
+        description: |
+            finishes a call
+        operationId: callCompleted
+        # security:
+        #     - ApiKeyAuth: []
+
+        responses:
+            '200':
+                description: customer
+            default:
+                description: unexpected error
+                content:
+                    application/json:
+                        schema:
+                            $ref: '../openapi.yml#/components/schemas/Error'
