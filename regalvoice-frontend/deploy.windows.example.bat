@@ -1,0 +1,1 @@
+aws s3 sync dist s3://<app_name> --delete --profile <profile_name>
